@@ -1,0 +1,11 @@
+RewriteEngine   On
+RewriteBase      /
+
+RewriteRule     ^((css|images|js)\/.*)$     resources/$1   [L]
+
+RewriteRule     ^index.html?$               ./              [R=301,L,NC]
+RewriteRule     ^(.+).page(\d)+\.html$      $1/page=$2      [R=301,L,NC]
+RewriteCond     %{REQUEST_URI}              !^\/(extras|content)
+RewriteRule     ^(.+?)(\/index.html|\/|\.html)$          $1              [R=301,L,NC]
+RewriteCond     %{REQUEST_URI}              !^\/(extras|resources|content|css|images|js|captcha\.php)
+RewriteRule     .*                          index.php  [L]

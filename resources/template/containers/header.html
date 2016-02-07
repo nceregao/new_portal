@@ -1,0 +1,37 @@
+<div class="page-header">
+    <div class="container">
+        <nav class="navbar navbar-default" role="navigation">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/">News portal</a>
+            </div>
+
+            <div class="collapse navbar-collapse navbar-ex1-collapse">
+                <ul class="nav navbar-nav">
+                    <li><a href="/">HOME</a></li>
+                    <li><a href="/documents">List news</a></li>
+                    <li><a href="/document/add">Add news</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <?php if (is_logged_in()): ?>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><?= $data['user']['name'] ?> <b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="/account/profile">Profile</a></li>
+                                <li><a href="/account/logout"><i class="icon-logout"></i>Logout</a></li>
+                            </ul>
+                        </li>
+                    <?php else: ?>
+                        <li><a href="#" data-toggle="modal" data-target="#modal-login" id="login-btn">Login</a></li>
+                        <li><a href="/account/register">Register</a></li>
+                    <?php endif ?>
+                </ul>
+            </div><!-- /.navbar-collapse -->
+        </nav>
+    </div>
+</div>

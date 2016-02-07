@@ -1,0 +1,74 @@
+<?php $d = $data['document'] ?>
+<div class="row">
+    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+    </div>
+    <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
+        <form method="POST">
+            <div class="row">
+                <label for="documentName" class="col-sm-2 control-label text-right">Name:</label>
+                <div class="col-sm-8">
+                    <input type="text" name="documentName" id="documentName" value="<?= $d['documentName'] ?>" autocomplete="off" class="form-control" required autofocus>
+                </div>
+            </div>
+            <div class="row">
+                <label for="documentAnnotation" class="col-sm-2 control-label text-right">Annotation:</label>
+                <div class="col-sm-8">
+                    <textarea name="documentAnnotation" id="documentAnnotation" cols="30" rows="3" class="form-control"><?= $d['documentAnnotation'] ?></textarea>
+                </div>
+            </div>
+            <div class="row">
+                <label for="documentContent" class="col-sm-2 control-label text-right">Content:</label>
+                <div class="col-sm-8">
+                    <textarea name="documentContent" id="documentContent" cols="30" rows="3" class="form-control"><?= $d['documentContent'] ?></textarea>
+                </div>
+            </div>
+            <div class="row">
+                <label for="documentThumbs" class="col-sm-2 control-label text-right">Thumbs:</label>
+                <div class="col-sm-8">
+                    <input type="text" name="documentThumbs" id="documentThumbs" value="<?= $d['documentThumbs'] ?>" class="form-control" autocomplete="off">
+                </div>
+            </div>
+            <div class="row">
+                <label for="documentTitle" class="col-sm-2 control-label text-right">Title:</label>
+                <div class="col-sm-8">
+                    <input type="text" name="documentTitle" id="documentTitle" value="<?= $d['documentTitle'] ?>" class="form-control" autocomplete="off">
+                </div>
+            </div>
+            <div class="row">
+                <label for="documentTags" class="col-sm-2 control-label text-right">Tags:</label>
+                <div class="col-sm-8">
+                    <input type="text" name="documentTags" id="documentTags" value="<?= $d['documentTags'] ?>" class="form-control" autocomplete="off">
+                </div>
+            </div>
+            <div class="row">
+                <label for="select-category-add" class="col-sm-2 control-label text-right">Category:</label>
+                <div class="col-sm-3">
+                    <select class="select-small form-control" name="documentCategory" id="select-category-add">
+                        <option value="">--Без категории--</option>
+                            <?php foreach ($data['categories'] as $id => $cat): ?>
+                                <option value="<?= $cat ?>"<?= $d['documentCategory'] == $cat ? ' selected' : '' ?>><?= $cat ?></option>
+                            <?php endforeach ?>
+                        <option value="other">Другая</option>
+                    </select>
+                </div>
+                <div class="col-sm-5">
+                    <input type="text" name="newCategory" autocomplete="off" class="form-control hidden">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-8 col-sm-offset-2">
+                    <div class="alert alert-danger" role="alert"><?= $data['error'] ?></div>
+                  	<?php while ($err = array_shift($_SESSION['error'])): ?>
+						<div class="alert alert-danger">
+							<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+							<strong>ERROR!</strong> <?= $err ?>
+						</div>
+					<?php endwhile ?>
+                    <button type="submit" name="submit" value="saveExit" class="btn btn-primary">Save and Exit</button>
+                    <button type="submit" name="submit" value="save" class="btn btn-primary">Save</button>
+                    <a href="/documents" class="btn btn-primary">Cancel</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

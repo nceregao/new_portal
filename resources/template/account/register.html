@@ -1,0 +1,35 @@
+<div class="row">
+    <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9 col-sm-offset-3">
+        <form id="form-register" action="register.php" method="POST" class="form-horizontal" role="form">
+            <div class="form-group">
+                <div class="col-sm-12">
+                    <legend>Register</legend>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="name" class="col-sm-2 text-right">Name</label>
+                <div class="col-sm-5">
+                    <input type="text" name="name" id="name" class="form-control" value="<?= $data['name'] ?>" required="required" title="">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="password" class="col-sm-2 text-right">Password</label>
+                <div class="col-sm-5">
+                    <input type="password" name="password" id="password" class="form-control" value="" required="required" title="">
+                </div>
+            </div>
+            <div class="alert alert-danger" role="alert"></div>
+			<?php while ($err = array_shift($_SESSION['error'])): ?>
+				<div class="alert alert-danger">
+					<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+					<strong>ERROR!</strong> <?= $err ?>
+				</div>
+			<?php endwhile ?>
+            <div class="form-group">
+                <div class="col-sm-10 col-sm-offset-2">
+                    <button type="submit" class="btn btn-primary">Register</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

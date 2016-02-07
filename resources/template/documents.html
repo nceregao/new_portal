@@ -1,0 +1,111 @@
+<div class="row">
+    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+        <?php if ( !empty($data['categories']) ): ?>
+            <div class="category-list mb20">
+                <h4>Categories</h4>
+                <?php foreach ($data['categories'] as $id => $cat): ?>
+                    <div class="mb5">
+                        <?php if ( $cat == $data['category'] ): ?>
+                            <u><?= $cat ?></u>
+                        <?php else: ?>
+                            <a href="/documents/category=<?= $cat ?>"><?= $cat ?></a>
+                        <?php endif ?>
+                    </div>
+                <?php endforeach ?>
+            </div>
+        <?php endif ?>
+        <?php if ( !empty($data['tags']) ): ?>
+            <div class="tags-list">
+                <h4>Tags</h4>
+                <?php foreach ($data['tags'] as $name): ?>
+                    <div class="mb5">
+                    <?php if ( $name == $data['tag'] ): ?>
+                        <u><?= $name ?></u>
+                    <?php else: ?>
+                        <a href="/documents/tag=<?= $name ?>"><?= $name ?></a>
+                    <?php endif ?>
+                    </div>
+                <?php endforeach ?>
+            </div>
+        <?php endif ?>
+    </div>
+    <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
+        <?php if ( $data['countDocuments'] ): ?>
+            <ul id="documents-list" class="list-group">
+                <?php foreach ($data['documents'] as $d): ?>
+                    <li class="list-group-item">
+                        <div class="pull-right">
+                    <?php if ( is_logged_in() && $d['user'] == $data['user']['name']): ?>
+                            <a href="/document/edit/<?= $d['documentID'] ?>" class="glyphicon glyphicon-pencil" title="Edit"></a> &nbsp;
+                            <a href="/document/remove/<?= $d['documentID'] ?>" class="glyphicon glyphicon-remove-circle j-del" data-toggle="modal" data-target="#modal-delete" data-id="<?= $d['documentID'] ?>" title="Remove"></a>
+                    <?php endif ?>
+                        </div>
+                        <a href="document/<?= $d['documentID'] ?>" class="j-document-name"><?= $d['documentName'] ?></a>
+                    <?php if ( isset($d['user']) ): ?>
+                        <span> &nbsp; <a class="badge"><?= $d['user'] ?></a></span>
+                    <?php endif ?>
+                        <div><?= $d['documentAnnotation'] ?></div>
+                    </li>
+                <?php endforeach ?>
+            </ul>
+            <div class="row">
+                <div class="col-lg-10">
+                    <?php if ($data['max_page'] > 1): ?>
+                        <ul class="pagination">
+                            <?php if ($data['page'] > 1): ?>
+                                <li><a href="/<?= $data['selfPath'] ?>/page=<?= $data['page'] - 1 ?>">&laquo;</a></li>
+                            <?php else: ?>
+                                <li class="disabled"><span>&laquo;</span></li>
+                            <?php endif ?>
+                            <?php for($i = 1; $i <= $data['max_page']; $i++): ?>
+                                <li class="<?= $i === $data['page'] ? 'active' : '' ?>"><a href="/<?= $data['selfPath'] ?>/page=<?= $i ?>"><?= $i ?></a></li>
+                            <?php endfor ?>
+                            <?php if ($data['page'] < $data['max_page']): ?>
+                                <li><a href="/<?= $data['selfPath'] ?>/page=<?= $data['page'] + 1 ?>">&raquo;</a></li>
+                            <?php else: ?>
+                                <li class="disabled"><span>&raquo;</span></li>
+                            <?php endif ?>
+                        </ul>
+                    <?php endif ?>
+                </div>
+                <div class="col-lg-2 mb20 text-right">
+                    <form method="POST" onchange="this.submit()">
+                        <select name="documentsLimit" class="select-small">
+                            <option<?= $data['documentsLimit'] == 5 ? ' selected' : '' ?>>5</option>
+                            <option<?= $data['documentsLimit'] == 10 ? ' selected' : '' ?>>10</option>
+                            <option<?= $data['documentsLimit'] == 20 ? ' selected' : '' ?>>20</option>
+                            <option<?= $data['documentsLimit'] == 50 ? ' selected' : '' ?>>50</option>
+                        </select>
+                    </form>
+                </div>
+            </div>
+        <?php else: ?>
+            <h4>News_portal empty.</h4>
+        <?php endif ?>
+
+
+
+        <!-- Modal -->
+        <div class="modal fade bs-example-modal-sm" id="modal-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-sm">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title" id="myModalLabel"></h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-sm-6 text-center">
+                                <button type="button" class="btn btn-danger" data-dismiss="delete" id="modal-delete-btn">Удалить</button>
+                            </div>
+                            <div class="col-sm-6 text-center">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
